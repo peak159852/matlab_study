@@ -1,0 +1,30 @@
+    
+matlab   2019 03 07
+
+% 명령창에서 실행해보기
+
+ls    % 리스트의 약자 현재 폴더내의 파일목록보여줌
+% matlab 파일 확장자 .m
+pwd % 현재 위치
+mkdir LJK % mkdir 디렉토리 추가
+cd LJK   % cd (change directory ) 
+cd .. % 전디렉토리로 이동
+rmdir LJK\    %  (remove dir)  rmdir 하고 tab눌러보기
+clear  % 화면은 그대로 메모리 지우기 
+home  % 메모리 그대로 화면 지우기 
+
+
+
+clear
+a = 4
+b = 7
+c = a + b
+
+clear
+a = 4;
+b = 7;
+c = a + b
+
+두개 세미콜론 차이
+1번은 a , b ,c 다표시
+2번은 c만 표시

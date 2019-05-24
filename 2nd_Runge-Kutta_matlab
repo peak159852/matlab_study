@@ -1,0 +1,47 @@
+% 2nd Runge-Kutta method
+clear all; clc; clf;
+n = 101; % number of points
+t = linspace(0, 1, n); % discrete domain
+h = t(2) - t(1);
+y(1) = 2; % initial value
+f = inline('1-2*t+5*y','t','y');
+
+% A = 0.5; B = 0.5; P = 1; Q = 1;   modified Euler
+A = 0; B = 1-A; P = 1/(2*B); Q = 1/(2*B); % midpoint method
+for i = 1:n-1
+    y(i+1) = y(i) + A*h*f(t(i),y(i)) ...
+       + B*h*f(t(i)+P*h, y(i) + Q*h*f(t(i),y(i)));
+end
+exact = 53/25*exp(5*t) + 2/5*t - 3/25;
+figure(1); hold on
+plot(t,y,'bo-')
+plot(t,exact, 'k*-','linewidth',2)
+legend('RK2-modified Euler','Exact')
+title('Solution')
+
+figure(2);
+plot(t, abs(y-exact), 'ro-','markersize',10)
+title('Absolute error')
+
+
+
+
+% 4nd Runge-Kutta method
+clear all; clc;
+n = 11; % number of points
+t = linspace(0, 1, n); % discrete domain
+h = t(2) - t(1);
+y(1) = 2; % initial value
+f = inline('1-2*t+5*y','t','y');
+
+% A = 0.5; B = 0.5; P = 1; Q = 1;   modified Euler
+A = 0; B = 1-A; P = 1/(2*B); Q = 1/(2*B); % 
+for i = 1:n-1
+    k1 = h*f(t(i),y(i));
+    k2 = h*f(t(i)+h/2, y(i) + 0.5*k1);
+    k3 = h*f(t(i)+h/2, y(i) + 0.5*k2);
+    k4 = h*f(t(i)+h, y(i) + k3);
+    y(i+1) = y(i) + (k1+2*k2+2*k3+k4)/6;
+end
+figure(1); hold on;
+plot(t,y,'bo-')

@@ -1,0 +1,20 @@
+% Heat equation 1D - FDM ( Explicit method )
+clear all; clc; clf;
+Nx = 11; % total number of x-grid points
+x = linspace(0, pi, Nx); % space grid
+Nt = 11; t = linspace(0, 1, Nt); % time gird
+h = x(2) - x(1); dt = t(2) - t(1);
+u(1:Nx, 1:Nt) = 0; % 초기 배열 지정. 0으로 초기화
+u(:,1) = sin(x);   % 바로밑 for 구문과 같은뜻. initial condition
+% for i = 1:Nx
+%     u(i,1) = sin(x(i));
+% end
+
+figure(1); hold on
+plot(x, u(:, 1), 'bo-')
+for n = 1:Nt-1
+    for i = 2:Nx-1
+        u(i,n+1) = u(i,n) + dt/h^2*(u(i+1,n) - 2*u(i,n) + u(i-1,n));
+    end
+    plot(x, u(:, n+1), 'ro-')
+end

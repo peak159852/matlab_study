@@ -1,0 +1,71 @@
+% Heat equation - 1D ( Implicit method )
+clear all; clc; clf;
+Nx = 11; % total number of x-grid points
+x = linspace(0, pi, Nx); % space grid
+Nt = 11; t = linspace(0, 2, Nt); % time gird
+
+% % % 필기와 다른점잇으니 주의  i=1 서부터 시작. x(1) = 0 % % %
+
+h = x(2) - x(1); dt = t(2) - t(1);
+u(1:Nx, 1:Nt) = 0; % 초기 배열 지정. 0으로 초기화
+u(:, 1) = sin(x);   % 바로밑 for 구문과 같은뜻. initial condition
+% for i = 1:Nx
+%     u(i,1) = sin(x(i));
+% end
+
+alpha = -1/h^2 ; beta = 1/dt + 2/h^2 ; gamma = -1/h^2;
+A(1:Nx-2, 1:Nx-2) = 0 ; % A 초기 배열 지정
+for i = 1:Nx-2
+    A(i,i) = beta;
+end
+for j = 1:Nx-3
+    A(j, j+1) = gamma;
+    A(j+1, j) = alpha;
+end
+figure(1); hold on
+plot(x,u(:,1),'r-')
+for n = 1:Nt-1
+    b(1:Nx-2) = u(2:Nx-1, n)/dt;
+    u(2:Nx-1, n+1) = inv(A)*b'; 
+    plot(x, u(:, n+1), 'b-')
+end
+
+
+ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ
+
+% Heat equation - 1D ( Implicit method )
+clear all; clc; clf;
+Nx = 11; % total number of x-grid points
+x = linspace(0, pi, Nx); % space grid
+Nt = 11; t = linspace(0, 2, Nt); % time gird
+
+% % % 필기와 다른점잇으니 주의  i=1 서부터 시작. x(1) = 0 % % %
+
+h = x(2) - x(1); dt = t(2) - t(1);
+u(1:Nx, 1:Nt) = 0; % 초기 배열 지정. 0으로 초기화
+u(:, 1) = sin(x);   % 바로밑 for 구문과 같은뜻. initial condition
+% for i = 1:Nx
+%     u(i,1) = sin(x(i));
+% end
+
+alpha = -2/h^2 ; beta = 1/dt + 4/h^2 ; gamma = -2/h^2;         <--------------------얘들만 바뀜. 계산해보면 나옴!
+A(1:Nx-2, 1:Nx-2) = 0 ; % A 초기 배열 지정
+for i = 1:Nx-2
+    A(i,i) = beta;
+end
+for j = 1:Nx-3
+    A(j, j+1) = gamma;
+    A(j+1, j) = alpha;
+end
+figure(1); hold on
+plot(x,u(:,1),'r-')
+for n = 1:Nt-1
+    b(1:Nx-2) = u(2:Nx-1, n)/dt;
+    u(2:Nx-1, n+1) = inv(A)*b'; 
+    plot(x, u(:, n+1), 'b-')
+end
+
+ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ
+
+d = 3;
+alpha = -1*d/h^2 ; beta = 1/dt + 2*d/h^2 ; gamma = -1*d/h^2;                   <-------------------미지수 d로 놓고 계산해도 

@@ -1,0 +1,37 @@
+ 2nd order Taylor method 이용
+ y(ti+1)=y(ti) + h y'(ti) + h^2/2y''(ti) + h^3/6y'''(ci)
+ y(ti+1) - y(ti) - h y'(ti) - h^2/2y''(ti) = h^3/6y'''(ci)  양변을 h로 나눠준다.
+좌변 타우 우변 O(h^2)
+
+4th order Taylor method 이용해보기
+
+matlab 코드
+
+
+% y' = y - t^2 + 1      0<=t<=2     y(0)=0.5
+% Initial Value Problem (IVP) 초기값 문제
+% f(t,y) = y-t^2+1
+% f'(t,y) = y'-2t = y-t^2+1-2t
+% f''(t,y) = y'-2t-2 = y-t^2+1-2t-2 = y-t^2-2t-1
+% f'''(t,y)=y-t^2-2t-1
+
+clear all; clc; clf;
+n = 20; a = 0; b = 2;
+t = linspace(a,b,n);
+h = t(2)-t(1);     % t(end)-t(end-1) 로 정의 해도 가능
+y(1) = 0.5;
+f = inline('y-t^2+1','t','y');
+fp = inline('y-t^2+1-2*t','t','y');
+fp2 = inline('y-t^2-2*t-1','t','y');
+fp3 = inline('y-t^2-2*t-1','t','y');
+%  4th order taylor method
+for i = 1:n-1
+    y(i+1) = y(i) + h*f(t(i),y(i)) + h^2*fp(t(i),y(i))/2 ...
+                  + h^3*fp2(t(i),y(i))/6 + h^4*fp3(t(i),y(i))/24;
+end
+% ... 마침표 3개 쓰고 엔터키 => 다음줄에 이어서 코딩가능
+% exact sol : y = t^2+2t-1-1/2e^t
+ye = t.^2 + 2*t + 1 -0.5*exp(t);      % 그냥 t^2 하면 오류 t.^2 해줘야 오류 x
+figure(1); hold on
+plot(t,y,'bo')
+plot(t,ye,'k*-')
